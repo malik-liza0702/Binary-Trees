@@ -1,0 +1,50 @@
+import java.util.*;
+class TreeNode{
+    int data;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int val){
+        this.data=val;
+        this.left=null;
+        this.right=null;
+        
+    }
+}
+class HelloWorld {
+    public static List<Integer> rootToNode(TreeNode root,int nodeVal){
+        List<Integer>list=new ArrayList<>();
+        
+        if(root==null){
+            return list;
+        }
+        getPath(root,list,nodeVal);
+        return list;
+    }
+    public static boolean getPath(TreeNode root,List<Integer>list,int nodeVal){
+        if(root==null){
+            return false;
+        }
+        list.add(root.data);
+        if(root.data==nodeVal){
+            return true;
+        }
+        if(getPath(root.left,list,nodeVal)||getPath(root.right,list,nodeVal))
+        return true;
+        list.remove(list.size()-1);
+        return false;
+    }
+    public static void main(String[] args) {
+        TreeNode root=new TreeNode(1);
+        root.left=new TreeNode(2);
+        root.right=new TreeNode(3);
+        root.left.left=new TreeNode(4);
+        root.left.right=new TreeNode(5);
+        root.left.right.left=new TreeNode(6);
+        root.left.right.right=new TreeNode(7);
+        List<Integer>list=new ArrayList<>();
+        list=rootToNode(root,7);
+        for(int i=0;i<list.size();i++){
+            System.out.print(list.get(i)+" ");
+        }
+    }
+}

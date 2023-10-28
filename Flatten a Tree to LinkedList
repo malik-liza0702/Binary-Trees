@@ -1,0 +1,39 @@
+class Solution {
+//*****************************Stack Approach****************************
+    public void flatten(TreeNode root) {
+        if(root==null){
+            return;
+        }
+        Stack<TreeNode>st=new Stack<>();
+        st.push(root);
+        while(!st.isEmpty()){
+            TreeNode node=st.peek();
+            st.pop();
+            if(node.right!=null){
+                st.push(node.right);
+            }
+            if(node.left!=null){
+                st.push(node.left);
+            }
+            if(!st.isEmpty()){
+                node.right=st.peek();
+            }
+            node.left=null;
+        }
+        
+    }
+//****************************************Recursion Approach*************************
+     TreeNode prev=null;
+     public void flattenToLL(TreeNode root){
+            if(root==null){
+                 return;
+            }
+             flattenToLL(root.right);
+            flattenToLL(root.left);
+             root.right=prev;
+            root.left=null;
+            prev=root;
+ 
+
+     }
+}
